@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<link rel="stylesheet" href="main.css">
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+<div id="coloumn">
+<p>Мимо́за — род цветковых растений семейства Бобовые. Ранее это растение помещали в ныне расформированное семейство Мимозовые.
+ Род составляют травы, кустарники или средней величины деревья с двоякоперистыми листьями. Число частей в цветке четверное, реже 3 и 6. Тычинок столько же или вдвое, соцветия в виде плотных головок или кистей. Произрастает преимущественно в Южной Америке и в Австралии.)
+</p>
+<img 
+src="img/blur/flower1.jpg"
+data-src="img/flower01.jpg"
+class="blur">
+<img 
+src="img/blur/flower2.jpg"
+data-src="img/flower02.jpg"
+class="blur">
+<img 
+src="img/blur/leaf.jpg"
+data-src="img/leaf01.jpg"
+class="blur">
+</div>
+</body>
+<script>
+//	let lazyList = document.querySelectorAll('.blur');
+//	let scrollCounter = 0;
+//	document.addEventListener('DOMContentLoaded', lazyLoad);
+//	document.addEventListener('scroll', function() {
+//		scrollCounter++
+//		console.log('scrollCounter: ', scrollCounter)
+//		let lazy = lazyList[0];
+//		console.log('lazy item: ', lazy);
+//		console.log('', lazy.getBoundingClientRect());
+//		console.group('Warning!');
+//		console.log('Положение верхней координаты изображения относительно верхней части экрана: ', lazy.getBoundingClientRect().top);
+//		console.log('Высота внутреннего окна: ', window.innerHeight);
+//		console.groupEnd();
+
+//	});
+//	function lazyLoad(){
+//		for (let lazy of lazyList) {
+//			if (lazy.hasAttribute('data-src')) {
+//				let data = lazy.getAttribute('data-src');
+//				lazy.setAttribute('src', data);
+//			};
+//		};
+//	};
+let lazyArray = Array.from(document.querySelectorAll('.blur'));
+document.addEventListener('DOMContentLoaded', function(){
+document.addEventListener('scroll', lazyLoad, false);
+});
+	function lazyLoad(){
+		for (let lazy of lazyArray) {
+			if (lazy.hasAttribute('data-src') &&
+				(lazy.getBoundingClientRect().top <= window.innerHeight)) {
+				let data = lazy.getAttribute('data-src');
+				lazy.setAttribute('src', data);
+				if (lazy == lazyArray[0]) {
+					lazyArray.shift()
+				};
+			};
+		};
+	};
+	if(lazyArray.length == 0) {
+		document.removeEventListener('scroll', lazyLoad);
+	};
+</script>
+</html>
